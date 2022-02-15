@@ -1,6 +1,9 @@
 import pybullet as p
 import time
 import pybullet_data
+from generate import *
+
+Create_World()
 
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
