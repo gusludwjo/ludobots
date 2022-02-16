@@ -11,12 +11,12 @@ physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
 
-p.setGravity(0,0,-9.8)
-planeId = p.loadURDF("plane.urdf")
+p.setGravity(0,0,-9.8) #loading gravity
+planeId = p.loadURDF("plane.urdf") #generates a plane
 
-robotId = p.loadURDF("body.urdf")
+robotId = p.loadURDF("body.urdf") #defines a robot from .urdf file called "body.urdf"
 
-p.loadSDF("world.sdf")
+p.loadSDF("world.sdf") #load the world from a .urdf file
 pyrosim.Prepare_To_Simulate(robotId)
 backLegSensorValues = np.zeros(200)
 frontLegSensorValues = np.zeros(200)
@@ -29,6 +29,17 @@ for i in range (200):
     backLegSensorValues[i] = backLegTouch
     frontLegTouch = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
     frontLegSensorValues[i] = frontLegTouch
+    pyrosim.Set_Motor_For_Joint(
+
+    bodyIndex = robotId,
+
+    jointName = "Torso_BackLeg",
+
+    controlMode = p.POSITION_CONTROL,
+
+    targetPosition = 0.0,
+
+    maxForce = 500)
 p.disconnect()
 
 np.save("data/backLeg_sensor_data", backLegSensorValues)
