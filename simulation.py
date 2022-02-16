@@ -1,9 +1,12 @@
+from math import pi
 import pybullet as p
 import time
 import pybullet_data
 import numpy as np
+import random
 from generate import *
 import pyrosim.pyrosim as pyrosim
+
 
 Create_World()
 
@@ -37,9 +40,21 @@ for i in range (1000):
 
     controlMode = p.POSITION_CONTROL,
 
-    targetPosition = 0.0,
+    targetPosition = random.uniform(-pi/2.0, pi/2.0),
 
-    maxForce = 500)
+    maxForce = 25)
+
+    pyrosim.Set_Motor_For_Joint(
+
+    bodyIndex = robotId,
+
+    jointName = "Torso_FrontLeg",
+
+    controlMode = p.POSITION_CONTROL,
+
+    targetPosition = random.uniform(-pi/2.0, pi/2.0),
+
+    maxForce = 25)
 p.disconnect()
 
 np.save("data/backLeg_sensor_data", backLegSensorValues)
