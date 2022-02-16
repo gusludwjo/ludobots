@@ -18,11 +18,11 @@ robotId = p.loadURDF("body.urdf") #defines a robot from .urdf file called "body.
 
 p.loadSDF("world.sdf") #load the world from a .urdf file
 pyrosim.Prepare_To_Simulate(robotId)
-backLegSensorValues = np.zeros(200)
-frontLegSensorValues = np.zeros(200)
+backLegSensorValues = np.zeros(1000)
+frontLegSensorValues = np.zeros(1000)
 
 
-for i in range (200):
+for i in range (1000):
     p.stepSimulation()
     time.sleep(1./240.)
     backLegTouch = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
